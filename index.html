@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html data-ng-app="newsApp">
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/"/>
+    <title>News</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" ui-sref="news">N E W S</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="fa fa-bars"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li ui-sref-active="active"><a ui-sref="news">News List</a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li ui-sref-active="active"><a ui-sref="createNews">Post a News</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row top-buffer">
+            <div class="col-xs-10 col-xs-offset-1">
+                <div ng-show="alert.show" class="alert" ng-class="(alert.isError) ? 'alert-danger': 'alert-success'">
+                    <a href="" class="close" data-dismiss="alert" aria-label="close" ng-click="alert.show = false">&times;</a>
+                    {{alert.message}}
+                </div>
+                <div ui-view></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="static/js/lib/angular.min.js"></script>
+    <script type="text/javascript" src="static/js/app.js"></script>
+    <script type="text/javascript" src="static/js/controllers.js"></script>
+    <script type="text/javascript" src="static/js/services.js"></script>
+    <script type="text/javascript" src="static/js/filters.js"></script>
+    <script type="text/javascript" src="static/js/lib/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="static/js/lib/angular-resource.min.js"></script>
+</body>
+</html>

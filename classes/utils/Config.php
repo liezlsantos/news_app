@@ -6,7 +6,7 @@ class Config {
     private static $instance = null;
 
     private function __construct() {
-        $configFile = getenv('NEWSAPP_SETTINGS_PATH') ?: '../app.ini';
+        $configFile = getenv('NEWSAPP_SETTINGS_PATH') ?: __DIR__.'/../../app.ini';
         $this->config = parse_ini_file($configFile, true);
     }
 

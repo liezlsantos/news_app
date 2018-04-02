@@ -46,8 +46,8 @@ class NewsManager {
             $db = DB::getInstance();
             $rows = $db->select("SELECT `id`, `title`, `body`, `created_at`
                 FROM `news`
-                WHERE `id` = ${id}
-                    AND `is_deleted` = 0");
+                WHERE `id` = ?
+                    AND `is_deleted` = 0", [$id]);
         } catch (DBException $e) {
             throw new NewsManagerException("Failed to retrieve news.", $e->getStatusCode(), $e);
         }
@@ -71,8 +71,8 @@ class NewsManager {
         try {
             $db = DB::getInstance();
             $sql = "INSERT INTO `news` (`title`, `body`, `created_at`)
-                VALUES('${title}','${body}', NOW())";
-            $db->exec($sql);
+                VALUES(?, ?, NOW())";
+            $db->exec($sql, [$title, $body]);
             return $db->lastInsertId($sql);
         } catch (DBException $e) {
             throw new NewsManagerException('Failed to add news.', $e->getStatusCode(), $e);
@@ -89,8 +89,8 @@ class NewsManager {
             $comments = CommentManager::getInstance()->deleteCommentForNews($id);
             $sql = "UPDATE `news`
                 SET `is_deleted` = 1
-                WHERE `id` = ${id}";
-            if ($db->exec($sql) === 0) {
+                WHERE `id` = ?";
+            if ($db->exec($sql, [$id]) === 0) {
                 throw new NotFoundException("News with id ${id} not found.");
             }
             $db->commit();

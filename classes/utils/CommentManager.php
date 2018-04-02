@@ -19,8 +19,8 @@ class CommentManager {
             $db = DB::getInstance();
             $rows = $db->select("SELECT `id`, `body`, `news_id`, `created_at`
                 FROM `comment`
-                WHERE `news_id` = ${newsId}
-                    AND `is_deleted` = 0");
+                WHERE `news_id` = ?
+                    AND `is_deleted` = 0", [$newsId]);
         } catch (DBException $e) {
             throw new CommentManagerException('Could not retrieve comments', $e->getStatusCode(), $e);
         }
@@ -43,8 +43,8 @@ class CommentManager {
         try {
             $db = DB::getInstance();
             $sql = "INSERT INTO `comment` (`body`, `created_at`, `news_id`)
-                VALUES('${body}', NOW(), '${newsId}')";
-            $db->exec($sql);
+                VALUES(?, NOW(), ?)";
+            $db->exec($sql, [$body, $newsId]);
             return $db->lastInsertId($sql);
         } catch (DBException $e) {
             throw new CommentManagerException('Failed to add comment.', $e->getStatusCode(), $e);
@@ -59,8 +59,8 @@ class CommentManager {
             $db = DB::getInstance();
             $sql = "UPDATE `comment`
                 SET `is_deleted` = 1
-                WHERE `id` = ${id}";
-            if ($db->exec($sql) === 0) {
+                WHERE `id` = ?";
+            if ($db->exec($sql, [$id]) === 0) {
                 throw new NotFoundException("Comment with id ${id} not found.");
             }
         } catch (DBException $e) {
@@ -76,8 +76,8 @@ class CommentManager {
             $db = DB::getInstance();
             $sql = "UPDATE `comment`
                 SET `is_deleted` = 1
-                WHERE `news_id` = ${newsId}";
-            return $db->exec($sql);
+                WHERE `news_id` = ?";
+            return $db->exec($sql, [$newsId]);
         } catch (DBException $e) {
             throw new CommentManagerException('Failed to delete comments.', $e->getStatusCode(), $e);
         }

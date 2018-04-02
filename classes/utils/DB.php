@@ -26,7 +26,7 @@ class DB {
         return self::$instance;
     }
 
-    public function select($sql, $binds = []) {
+    public function select($sql, $binds = null) {
         try {
             $sth = $this->pdo->prepare($sql);
             $sth->execute($binds);
@@ -36,7 +36,7 @@ class DB {
         }
     }
 
-    public function exec($sql, $binds = []) {
+    public function exec($sql, $binds = null) {
         try {
             $sth =  $this->pdo->prepare($sql);
             return $sth->execute($binds);

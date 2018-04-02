@@ -57,18 +57,22 @@ angular.module('newsApp.controllers', [])
         $scope.comment.$save(function() {
             $scope.news = getNews($scope.news.id);
         }, function(response) {
-            alertService.showAlert(response.data.message, true);
+            alertService.showAlert(
+                response.data ? response.data.message : 'Unkown error occurred',
+                true
+            );
         });
     };
 
     $scope.deleteComment = function(comment_id){
         if (popupService.showPopup('Do you really want to remove this comment?')) {
-            comment = new Comment();
-            comment.id = comment_id;
             Comment.delete({id: comment_id}, function() {
                 $scope.news = getNews($scope.news.id);
             }, function(response) {
-                alertService.showAlert(response.data.message, true);
+                alertService.showAlert(
+                    response.data ? response.data.message : 'Unkown error occurred',
+                    true
+                );
             });
         }
     };
@@ -79,7 +83,10 @@ angular.module('newsApp.controllers', [])
                 $state.go('news');
                 alertService.showAlert('News successfully deleted.', false);
             }, function(response) {
-                alertService.showAlert(response.data.message, true);
+                alertService.showAlert(
+                    response.data ? response.data.message : 'Unkown error occurred',
+                    true
+                );
             });
         }
     };
@@ -90,7 +97,10 @@ angular.module('newsApp.controllers', [])
             $scope.comment = new Comment();
         }, function(response) {
             $state.go('news');
-            alertService.showAlert(response.data.message, true);
+            alertService.showAlert(
+                response.data ? response.data.message : 'Unkown error occurred',
+                true
+            );
         });
     }
 })
@@ -102,7 +112,10 @@ angular.module('newsApp.controllers', [])
             $state.go('news');
             alertService.showAlert('News successfully posted.', false);
         }, function(response) {
-            alertService.showAlert(response.data.message, true);
+            alertService.showAlert(
+                response.data ? response.data.message : 'Unkown error occurred',
+                true
+            );
         });
     }
 });

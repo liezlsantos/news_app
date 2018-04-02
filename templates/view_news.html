@@ -1,11 +1,11 @@
 <div>
-    <h3>{{news.title}}</h3>
+    <h3 ng-bind="news.title"></h3>
     <div>
         <div ng-bind-html="news.body|unsafeHtml"></div>
         <ul class="list-inline list-unstyled">
-            <li><span><i class="fa fa-calendar"></i> Posted at {{news.created_at|dateFromString:"medium"}}</span></li>
+            <li><span><i class="fa fa-calendar"></i> Posted at <span ng-bind="news.created_at|dateFromString:'medium'"></span></span></li>
             <li>|</li>
-            <li><a href=""><span><i class="fa fa-comment"></i> {{news.comments.length}} comments</span></a></li>
+            <li><a href=""><span><i class="fa fa-comment"></i> <span ng-bind="news.comments.length"></span> comments</span></a></li>
             <li>|</li>
             <li><button type="button" id="delete-news-btn" class="btn btn-basic btn-sm" ng-click="deleteNews(news)"><span><i class="fa fa-trash"></i> Delete news </span></a></button></li>
         </ul>
@@ -17,10 +17,10 @@
         <br/>
         <div class="well" ng-repeat="comment in news.comments">
             <div class="media-body">
-                <div>{{comment.body}}</div>
+                <div ng-bind="comment.body"></div>
                 <hr/>
                 <ul class="list-inline list-unstyled">
-                    <li><span><i class="fa fa-calendar"></i> Posted at {{comment.created_at|dateFromString:"medium"}}</span></li>
+                    <li><span><i class="fa fa-calendar"></i> Posted at <span ng-bind="comment.created_at|dateFromString:'medium'"></span></span></li>
                     <li>|</li>
                     <li><button type="button" class="btn btn-basic btn-sm" ng-click="deleteComment(comment.id)"><span><i class="fa fa-trash"></i> Remove</span></button></li>
                 </ul>

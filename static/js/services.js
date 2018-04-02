@@ -5,7 +5,7 @@ angular.module('newsApp.services', [])
 })
 
 .factory('Comment', function($resource) {
-    return $resource('api/comments.php/:id', {id: '@_id'})
+    return $resource('api/comments.php/:id', {id: '@_id'});
 })
 
 .service('popupService', function($window) {
